@@ -20,13 +20,13 @@ int main(void)
 
     while (1)
     {
-        // Kéo NSS xu?ng (ch?n Slave)
+        // KÃ©o NSS xuong (chan Slave)
         GPIO_ResetBits(GPIOA, GPIO_Pin_4);
 
-        // G?i 1 byte (ví d? 0x55) và nh?n l?i ph?n h?i
+        // Gui 1 byte (vi du 0x55) vÃ  nhan lai phan hoi
         rx = SPI1_Transfer(0x55);
 
-        // Nh? NSS
+        // Nha NSS
         GPIO_SetBits(GPIOA, GPIO_Pin_4);
 
         sprintf(buf, "Received: 0x%02X\r\n", rx);
@@ -95,20 +95,20 @@ void SPI1_Init(void)
     GPIO_InitS.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOA, &GPIO_InitS);
 
-    // NSS as GPIO output (ch? d?ng di?u khi?n)
+    // NSS as GPIO output (chu dong dieu khien)
     GPIO_InitS.GPIO_Pin = GPIO_Pin_4;
     GPIO_InitS.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_Init(GPIOA, &GPIO_InitS);
-    GPIO_SetBits(GPIOA, GPIO_Pin_4); // ban d?u nh?
+    GPIO_SetBits(GPIOA, GPIO_Pin_4); // ban dau nha
 
-    // C?u hình SPI1 Master
+    // Cau hinh SPI1 Master
     SPI_InitS.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
     SPI_InitS.SPI_Mode = SPI_Mode_Master;
     SPI_InitS.SPI_DataSize = SPI_DataSize_8b;
     SPI_InitS.SPI_CPOL = SPI_CPOL_Low;
     SPI_InitS.SPI_CPHA = SPI_CPHA_1Edge;
     SPI_InitS.SPI_NSS = SPI_NSS_Soft;
-    SPI_InitS.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16; // t?c d? ~ 4.5 MHz n?u SYSCLK=72 MHz
+    SPI_InitS.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16; // tá»‘c Ä‘á»™ ~ 4.5 MHz náº¿u SYSCLK=72 MHz
     SPI_InitS.SPI_FirstBit = SPI_FirstBit_MSB;
     SPI_InitS.SPI_CRCPolynomial = 7;
 
@@ -116,7 +116,7 @@ void SPI1_Init(void)
     SPI_Cmd(SPI1, ENABLE);
 }
 
-// G?i 1 byte và nh?n 1 byte
+// Gá»­i 1 byte vÃ  nháº­n 1 byte
 uint8_t SPI1_Transfer(uint8_t data)
 {
     while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
@@ -137,3 +137,4 @@ void delay_ms(uint32_t ms)
 
     SysTick->CTRL = 0;
 }
+
